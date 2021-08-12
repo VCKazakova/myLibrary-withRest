@@ -2,7 +2,6 @@ package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
-import javassist.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
