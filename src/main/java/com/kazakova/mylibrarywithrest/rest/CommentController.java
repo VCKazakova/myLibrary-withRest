@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Comment;
+import com.kazakova.mylibrarywithrest.dto.CommentDto;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 

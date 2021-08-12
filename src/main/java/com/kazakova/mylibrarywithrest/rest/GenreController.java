@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Genre;
+import com.kazakova.mylibrarywithrest.dto.GenreDto;
 import com.kazakova.mylibrarywithrest.service.GenreService;
 import org.springframework.web.bind.annotation.*;
 

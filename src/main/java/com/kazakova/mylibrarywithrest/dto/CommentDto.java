@@ -1,6 +1,5 @@
-package com.kazakova.mylibrarywithrest.rest;
+package com.kazakova.mylibrarywithrest.dto;
 
-import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Comment;
 import lombok.AllArgsConstructor;
@@ -21,12 +20,10 @@ public class CommentDto {
     }
 
     public static Comment toDomainObject(CommentDto dto) {
-
         return new Comment(dto.getId(), dto.getComment(), new Book(dto.getBookId()));
     }
 
     public static CommentDto toDto(Comment account) {
-
         return new CommentDto(account.getId(), account.getComment(), account.getBook().getId());
     }
 }

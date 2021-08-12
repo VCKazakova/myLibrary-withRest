@@ -35,6 +35,10 @@ public class Author {
         this.name = name;
     }
 
+    public Author(Long authorId) {
+        this.id = authorId;
+    }
+
     @Override
     public String toString() {
         return "Author{" +

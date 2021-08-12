@@ -1,4 +1,4 @@
-package com.kazakova.mylibrarywithrest.rest;
+package com.kazakova.mylibrarywithrest.dto;
 
 
 import com.kazakova.mylibrarywithrest.domain.Genre;

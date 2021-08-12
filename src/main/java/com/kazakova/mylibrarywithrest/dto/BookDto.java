@@ -1,4 +1,4 @@
-package com.kazakova.mylibrarywithrest.rest;
+package com.kazakova.mylibrarywithrest.dto;
 
 import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Book;
@@ -15,21 +15,12 @@ public class BookDto {
 
     private Long id;
     private String bookTitle;
-    private Author author;
-    private Genre genre;
     private Long authorId;
     private Long genreId;
 
-    public BookDto(Long id, String bookTitle, Long authorId, Long genreId) {
-        this.id = id;
-        this.bookTitle = bookTitle;
-        this.authorId = author.getId();
-        this.genreId = genre.getId();
-    }
-
 
     public static Book toDomainObject(BookDto dto) {
-        return new Book(dto.getId(), dto.getBookTitle(), dto.getAuthor(), dto.getGenre());
+        return new Book(dto.getId(), dto.getBookTitle(), new Author(dto.getAuthorId()), new Genre(dto.getGenreId()));
     }
 
     public static BookDto toDto(Book account) {

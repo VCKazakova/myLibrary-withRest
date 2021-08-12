@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Book;
+import com.kazakova.mylibrarywithrest.dto.BookDto;
 import com.kazakova.mylibrarywithrest.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,19 +55,14 @@ public class BookController {
         service.deleteBookById(id);
     }
 
-//    @PutMapping("/book/{id}/holder")
-//    public void changeName(
-//            @PathVariable("id") Long id,
-//            @RequestParam("bookTitle") String bookTitle,
-//            @RequestParam("authorId") Long authorId,
-//            @RequestParam("genreId") Long genreId
-//    ) {
-//        Book book = service.findBookById(id).get();
-//        book.setBookTitle(bookTitle);
-//        book.setAuthor();
-//        book.setGenre();
-//        service.createBook(book);
-//    }
-
+    @PutMapping("/book/{id}/holder")
+    public void changeBookTitle(
+            @PathVariable("id") Long id,
+            @RequestParam("bookTitle") String bookTitle
+    ) {
+        Book book = service.findBookById(id).get();
+        book.setBookTitle(bookTitle);
+        service.createBook(book);
+    }
 
 }

@@ -35,6 +35,10 @@ public class Genre {
         this.name = name;
     }
 
+    public Genre(Long genreId) {
+        this.id = genreId;
+    }
+
     @Override
     public String toString() {
         return "Genre{" +

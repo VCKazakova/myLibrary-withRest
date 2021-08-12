@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Author;
+import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
 import org.springframework.web.bind.annotation.*;
 
