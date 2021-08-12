@@ -54,16 +54,14 @@ public class CommentController {
         service.deleteCommentById(id);
     }
 
-//    @PutMapping("/comment/{id}/holder")
-//    public void changeName(
-//            @PathVariable("id") Long id,
-//            @RequestParam("comment") String comment,
-//            @RequestParam("bookId") Long bookId
-//    ) {
-//        Comment commentForChange = service.findCommentById(id).get();
-//        commentForChange.setComment(comment);
-//        commentForChange.setBook(commentForChange.getBook().getId());
-//        service.createComment(comment);
-//    }
+    @PutMapping("/comment/{id}/holder")
+    public void changeName(
+            @PathVariable("id") Long id,
+            @RequestParam("comment") String comment
+    ) {
+        Comment commentForChange = service.findCommentById(id).get();
+        commentForChange.setComment(comment);
+        service.createComment(commentForChange);
+    }
 
 }

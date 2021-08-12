@@ -15,18 +15,18 @@ public class CommentDto {
 
     private Long id;
     private String comment;
-    private Book book;
+    private Long bookId;
 
     public CommentDto() {
     }
 
     public static Comment toDomainObject(CommentDto dto) {
 
-        return new Comment(dto.getId(), dto.getComment(), dto.getBook());
+        return new Comment(dto.getId(), dto.getComment(), new Book(dto.getBookId()));
     }
 
     public static CommentDto toDto(Comment account) {
 
-        return new CommentDto(account.getId(), account.getComment(), account.getBook());
+        return new CommentDto(account.getId(), account.getComment(), account.getBook().getId());
     }
 }

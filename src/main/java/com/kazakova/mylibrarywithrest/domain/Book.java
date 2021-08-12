@@ -47,6 +47,10 @@ public class Book {
         this.genre = genre;
     }
 
+    public Book(Long bookId)  {
+        this.id = bookId;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
