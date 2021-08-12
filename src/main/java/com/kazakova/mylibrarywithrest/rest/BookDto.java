@@ -3,9 +3,14 @@ package com.kazakova.mylibrarywithrest.rest;
 import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Genre;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@SuppressWarnings("all")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookDto {
 
     private Long id;
@@ -14,16 +19,6 @@ public class BookDto {
     private Genre genre;
     private Long authorId;
     private Long genreId;
-
-    public BookDto() {
-    }
-
-    public BookDto(Long id, String bookTitle, Author author, Genre genre) {
-        this.id = id;
-        this.bookTitle = bookTitle;
-        this.author = author;
-        this.genre = genre;
-    }
 
     public BookDto(Long id, String bookTitle, Long authorId, Long genreId) {
         this.id = id;
