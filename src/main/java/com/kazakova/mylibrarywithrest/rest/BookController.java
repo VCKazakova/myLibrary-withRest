@@ -2,10 +2,12 @@ package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.dto.BookDto;
+import com.kazakova.mylibrarywithrest.exception.NotFoundException;
 import com.kazakova.mylibrarywithrest.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,7 +37,7 @@ public class BookController {
     public BookDto get(
             @PathVariable("id") Long id
     ) {
-       Book book = service.findBookById(id).get();
+        Book book = service.findBookById(id).orElseThrow(NotFoundException::new);
         return BookDto.toDto(book);
     }
 
