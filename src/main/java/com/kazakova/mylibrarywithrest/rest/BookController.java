@@ -7,7 +7,6 @@ import com.kazakova.mylibrarywithrest.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,7 +61,7 @@ public class BookController {
             @PathVariable("id") Long id,
             @RequestParam("bookTitle") String bookTitle
     ) {
-        Book book = service.findBookById(id).get();
+        Book book = service.findBookById(id).orElseThrow(NotFoundException::new);
         book.setBookTitle(bookTitle);
         service.createBook(book);
     }
