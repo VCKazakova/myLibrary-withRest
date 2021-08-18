@@ -30,13 +30,13 @@ public class Genre {
     @JoinColumn(name = "genre_id")
     private List<Book> books = new ArrayList<>();
 
-    public Genre(long id, String name) {
+    public Genre(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Genre(Long genreId) {
-        this.id = genreId;
+    public Genre(Long id) {
+        this.id = id;
     }
 
     @Override

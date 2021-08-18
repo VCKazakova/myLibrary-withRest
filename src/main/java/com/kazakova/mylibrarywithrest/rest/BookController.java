@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Book;
+import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.dto.BookDto;
 import com.kazakova.mylibrarywithrest.exception.NotFoundException;
 import com.kazakova.mylibrarywithrest.service.BookService;
@@ -40,15 +41,23 @@ public class BookController {
         return BookDto.toDto(book);
     }
 
-    @RequestMapping(
-            value = "/book",
-            method = RequestMethod.POST
-    )
-    public @ResponseBody
-    BookDto create(@RequestBody BookDto dto) {
-        Book book = BookDto.toDomainObject(dto);
-        Book bookWithId = service.createBook(book);
-        return BookDto.toDto(bookWithId);
+//    @RequestMapping(
+//            value = "/book",
+//            method = RequestMethod.POST
+//    )
+//    public @ResponseBody
+//    BookDto create(@RequestBody BookDto dto) {
+//        Book book = BookDto.toDomainObject(dto);
+//        Book bookWithId = service.createBook(book);
+//        return BookDto.toDto(bookWithId);
+//    }
+
+    @PostMapping("/createBook")
+    public BookDto createBook(@RequestBody BookDto dto) {
+        Book book = dto.toDomainObject();
+        Book newBook = service.createBook(book);
+        return BookDto.toDto(newBook);
+
     }
 
     @DeleteMapping("/book/{id}")

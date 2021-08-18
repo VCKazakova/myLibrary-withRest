@@ -3,12 +3,13 @@ package com.kazakova.mylibrarywithrest.dto;
 import com.kazakova.mylibrarywithrest.domain.Author;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Getter
 @AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class AuthorDto {
 
     private Long id;
@@ -23,17 +24,5 @@ public class AuthorDto {
 
     public Author toDomainObject() {
         return new Author(id, name);
-    }
-
-    public AuthorDto() {
-        log.info("Создание класса AuthorDto");
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

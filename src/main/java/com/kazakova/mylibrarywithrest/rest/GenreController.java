@@ -1,6 +1,8 @@
 package com.kazakova.mylibrarywithrest.rest;
 
+import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
+import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.dto.GenreDto;
 import com.kazakova.mylibrarywithrest.service.GenreService;
 import org.springframework.web.bind.annotation.*;
@@ -38,21 +40,11 @@ public class GenreController {
         return GenreDto.toDto(genre);
     }
 
-//    @RequestMapping(
-//            value = "/genre",
-//            method = RequestMethod.POST
-//    )
-//    public @ResponseBody GenreDto create(@RequestBody GenreDto dto) {
-//        Genre account = GenreDto.toDomainObject(dto);
-//        Genre accountWithId = service.createGenre(account);
-//        return GenreDto.toDto(accountWithId);
-//    }
-
     @PostMapping("/genre")
     public GenreDto create(GenreDto dto) {
-        Genre account = GenreDto.toDomainObject(dto);
-        Genre accountWithId = service.createGenre(account);
-        return GenreDto.toDto(accountWithId);
+        Genre genre = dto.toDomainObject();
+        Genre newGenre = service.createGenre(genre);
+        return GenreDto.toDto(newGenre);
     }
 
     @DeleteMapping("/genre/{id}")

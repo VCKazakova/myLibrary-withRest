@@ -1,46 +1,30 @@
 package com.kazakova.mylibrarywithrest.dto;
 
 
+import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @SuppressWarnings("all")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GenreDto {
 
     private Long id;
     private String name;
 
-    public GenreDto() {}
-
-    public GenreDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public static GenreDto toDto(Genre entity) {
+        GenreDto dto = new GenreDto();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        return dto;
     }
 
-    public static Genre toDomainObject(GenreDto dto) {
-        return new Genre(dto.getId(), dto.getName());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static GenreDto toDto(Genre account) {
-        return new GenreDto(account.getId(), account.getName());
+    public Genre toDomainObject() {
+        return new Genre(id, name);
     }
 
 }

@@ -18,13 +18,17 @@ public class BookDto {
     private Long authorId;
     private Long genreId;
 
-
-    public static Book toDomainObject(BookDto dto) {
-        return new Book(dto.getId(), dto.getBookTitle(), new Author(dto.getAuthorId()), new Genre(dto.getGenreId()));
+    public static BookDto toDto(Book entity) {
+        BookDto dto = new BookDto();
+        dto.setId(entity.getId());
+        dto.setBookTitle(entity.getBookTitle());
+        dto.setAuthorId(dto.getAuthorId());
+        dto.setGenreId(dto.getGenreId());
+        return dto;
     }
 
-    public static BookDto toDto(Book account) {
-        return new BookDto(account.getId(), account.getBookTitle(), account.getAuthor().getId(), account.getGenre().getId());
+    public Book toDomainObject() {
+        return new Book(id, bookTitle, new Author(authorId), new Genre(genreId));
     }
 
 }
