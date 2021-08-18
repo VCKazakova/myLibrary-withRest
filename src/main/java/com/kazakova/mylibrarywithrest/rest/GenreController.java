@@ -1,9 +1,8 @@
 package com.kazakova.mylibrarywithrest.rest;
 
-import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
-import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.dto.GenreDto;
+import com.kazakova.mylibrarywithrest.exception.NotFoundException;
 import com.kazakova.mylibrarywithrest.service.GenreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +41,7 @@ public class GenreController {
             @PathVariable("id") Long id
     ) {
         log.info(">> GenreController getGenreById id={}", id);
-        Genre genre = service.findGenreById(id).get();
+        Genre genre = service.findGenreById(id).orElseThrow(NotFoundException::new);
         GenreDto genreById = GenreDto.toDto(genre);
         log.info(">> GenreController getGenreById genreById={}", genreById);
         return genreById;
@@ -70,7 +69,7 @@ public class GenreController {
             @RequestParam("name") String name
     ) {
         log.info(">> GenreController changeGenre id={}", id);
-        Genre genre = service.findGenreById(id).get();
+        Genre genre = service.findGenreById(id).orElseThrow(NotFoundException::new);
         genre.setName(name);
         Genre changedGenre = service.createGenre(genre);
         log.info(">> GenreController changeGenre changedGenre={}", changedGenre);

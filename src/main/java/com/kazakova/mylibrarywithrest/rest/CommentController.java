@@ -2,6 +2,7 @@ package com.kazakova.mylibrarywithrest.rest;
 
 import com.kazakova.mylibrarywithrest.domain.Comment;
 import com.kazakova.mylibrarywithrest.dto.CommentDto;
+import com.kazakova.mylibrarywithrest.exception.NotFoundException;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class CommentController {
             @PathVariable("id") Long id
     ) {
         log.info(">> CommentController getCommentById id={}", id);
-        Comment comment = service.findCommentById(id).get();
+        Comment comment = service.findCommentById(id).orElseThrow(NotFoundException::new);
         CommentDto commentById = CommentDto.toDto(comment);
         log.info(">> CommentController getCommentById commentById={}", commentById);
         return commentById;
@@ -69,7 +70,7 @@ public class CommentController {
             @RequestParam("comment") String comment
     ) {
         log.info(">> CommentController changeComment id={}", id);
-        Comment commentForChange = service.findCommentById(id).get();
+        Comment commentForChange = service.findCommentById(id).orElseThrow(NotFoundException::new);
         commentForChange.setComment(comment);
         Comment changedComment = service.createComment(commentForChange);
         log.info(">> CommentController changeComment changedComment={}", changedComment);
