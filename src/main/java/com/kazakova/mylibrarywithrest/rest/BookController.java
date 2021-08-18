@@ -26,11 +26,11 @@ public class BookController {
             method = RequestMethod.GET
     )
     public List<BookDto> get() {
-        log.info(">> LookOfADayController getAllBooks");
+        log.info(">> BookController getAllBooks");
         List<BookDto> allBooks = service.findAllBooks().stream()
                 .map(BookDto::toDto)
                 .collect(Collectors.toList());
-        log.info(">> LookOfADayController getAllBooks allBooks={}", allBooks);
+        log.info(">> BookController getAllBooks allBooks={}", allBooks);
         return allBooks;
     }
 
@@ -41,27 +41,27 @@ public class BookController {
     public BookDto get(
             @PathVariable("id") Long id
     ) {
-        log.info(">> LookOfADayController getBookById id={}", id);
+        log.info(">> BookController getBookById id={}", id);
         Book book = service.findBookById(id)
                 .orElseThrow(() -> new NotFoundException("Book not found", id));
         BookDto bookById = BookDto.toDto(book);
-        log.info(">> LookOfADayController getBookById bookById={}", bookById);
+        log.info(">> BookController getBookById bookById={}", bookById);
         return bookById;
     }
 
     @PostMapping("/createBook")
     public BookDto createBook(@RequestBody BookDto dto) {
-        log.info(">> LookOfADayController createBook dto={}", dto);
+        log.info(">> BookController createBook dto={}", dto);
         Book book = dto.toDomainObject();
         Book newBook = service.createBook(book);
         BookDto savedBook = BookDto.toDto(newBook);
-        log.info(">> LookOfADayController createBook savedBook={}", savedBook);
+        log.info(">> BookController createBook savedBook={}", savedBook);
         return savedBook;
     }
 
     @DeleteMapping("/book/{id}")
     public void delete(@PathVariable("id") Long id) {
-        log.info(">> LookOfADayController deleteBook id={}", id);
+        log.info(">> BookController deleteBook id={}", id);
         service.deleteBookById(id);
     }
 
@@ -70,11 +70,11 @@ public class BookController {
             @PathVariable("id") Long id,
             @RequestParam("bookTitle") String bookTitle
     ) {
-        log.info(">> LookOfADayController changeBookTitle id={}", id);
+        log.info(">> BookController changeBookTitle id={}", id);
         Book book = service.findBookById(id).orElseThrow(NotFoundException::new);
         book.setBookTitle(bookTitle);
         Book bookWithNewTitle = service.createBook(book);
-        log.info(">> LookOfADayController changeBookTitle bookWithNewTitle={}", bookWithNewTitle);
+        log.info(">> BookController changeBookTitle bookWithNewTitle={}", bookWithNewTitle);
     }
 
 }
