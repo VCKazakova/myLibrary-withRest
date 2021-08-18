@@ -24,11 +24,11 @@ public class AuthorController {
             method = RequestMethod.GET
     )
     public List<AuthorDto> get() {
-        log.info(">> LookOfADayController getAllAuthors");
+        log.info(">> AuthorController getAllAuthors");
         List<AuthorDto> allAuthors = service.findAllAuthors().stream()
                 .map(AuthorDto::toDto)
                 .collect(Collectors.toList());
-        log.info(">> LookOfADayController getAllAuthors allAuthors={}", allAuthors);
+        log.info(">> AuthorController getAllAuthors allAuthors={}", allAuthors);
         return allAuthors;
     }
 
@@ -39,27 +39,27 @@ public class AuthorController {
     public AuthorDto get(
             @PathVariable("id") Long id
     ) {
-        log.info(">> LookOfADayController getAuthorById id={}", id);
+        log.info(">> AuthorController getAuthorById id={}", id);
         Author author = service.findAuthorById(id);
         AuthorDto authorById = AuthorDto.toDto(author);
-        log.info(">> LookOfADayController getAuthorById authorById={}", authorById);
+        log.info(">> AuthorController getAuthorById authorById={}", authorById);
         return authorById;
     }
 
     @PostMapping("/createAuthor")
     public AuthorDto createAuthor(@RequestBody AuthorDto dto) {
-        log.info(">> LookOfADayController createAuthor dto={}", dto);
+        log.info(">> AuthorController createAuthor dto={}", dto);
         Author author = dto.toDomainObject();
         Author newAuthor = service.createAuthor(author);
         AuthorDto savedAuthor = AuthorDto.toDto(newAuthor);
-        log.info(">> LookOfADayController createAuthor savedAuthor={}", savedAuthor);
+        log.info(">> AuthorController createAuthor savedAuthor={}", savedAuthor);
         return savedAuthor;
     }
 
 
     @DeleteMapping("/author/{id}")
     public void delete(@PathVariable("id") Long id) {
-        log.info(">> LookOfADayController deleteAuthor id={}", id);
+        log.info(">> AuthorController deleteAuthor id={}", id);
         service.deleteAuthorById(id);
     }
 
@@ -68,11 +68,11 @@ public class AuthorController {
             @PathVariable("id") Long id,
             @RequestParam("name") String name
     ) {
-        log.info(">> LookOfADayController changeAuthorName id={}", id);
+        log.info(">> AuthorController changeAuthorName id={}", id);
         Author author = service.findAuthorById(id);
         author.setName(name);
         Author authorWithNewName = service.createAuthor(author);
-        log.info(">> LookOfADayController changeAuthorName authorWithNewName={}", authorWithNewName);
+        log.info(">> AuthorController changeAuthorName authorWithNewName={}", authorWithNewName);
     }
 
 }
