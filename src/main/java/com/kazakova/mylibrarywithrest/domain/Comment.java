@@ -28,7 +28,7 @@ public class Comment {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
 
-    public Comment(long id, String comment, Book book) {
+    public Comment(Long id, String comment, Book book) {
         this.id = id;
         this.comment = comment;
         this.book = book;

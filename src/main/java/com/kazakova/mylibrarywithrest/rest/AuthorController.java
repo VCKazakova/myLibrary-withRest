@@ -38,16 +38,14 @@ public class AuthorController {
         return AuthorDto.toDto(author);
     }
 
-    @RequestMapping(
-            value = "/author",
-            method = RequestMethod.POST
-    )
-    public @ResponseBody
-    AuthorDto create(@RequestBody AuthorDto dto) {
-        Author author = AuthorDto.toDomainObject(dto);
-        Author authorWithId = service.createAuthor(author);
-        return AuthorDto.toDto(authorWithId);
+    @PostMapping("/createAuthor")
+    public AuthorDto createPerson(@RequestBody AuthorDto dto) {
+        Author author = dto.toDomainObject();
+        Author newAuthor = service.createAuthor(author);
+        AuthorDto authorDto = AuthorDto.toDto(newAuthor);
+        return authorDto;
     }
+
 
     @DeleteMapping("/author/{id}")
     public void delete(@PathVariable("id") Long id) {

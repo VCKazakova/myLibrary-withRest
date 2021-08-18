@@ -38,11 +38,18 @@ public class GenreController {
         return GenreDto.toDto(genre);
     }
 
-    @RequestMapping(
-            value = "/genre",
-            method = RequestMethod.POST
-    )
-    public @ResponseBody GenreDto create(@RequestBody GenreDto dto) {
+//    @RequestMapping(
+//            value = "/genre",
+//            method = RequestMethod.POST
+//    )
+//    public @ResponseBody GenreDto create(@RequestBody GenreDto dto) {
+//        Genre account = GenreDto.toDomainObject(dto);
+//        Genre accountWithId = service.createGenre(account);
+//        return GenreDto.toDto(accountWithId);
+//    }
+
+    @PostMapping("/genre")
+    public GenreDto create(GenreDto dto) {
         Genre account = GenreDto.toDomainObject(dto);
         Genre accountWithId = service.createGenre(account);
         return GenreDto.toDto(accountWithId);

@@ -30,7 +30,7 @@ public class Author {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private List<Book> books = new ArrayList<>();
 
-    public Author(long id, String name) {
+    public Author(Long id, String name) {
         this.id = id;
         this.name = name;
     }
