@@ -22,13 +22,13 @@ public class BookDto {
         BookDto dto = new BookDto();
         dto.setId(entity.getId());
         dto.setBookTitle(entity.getBookTitle());
-        dto.setAuthorId(dto.getAuthorId());
-        dto.setGenreId(dto.getGenreId());
+        dto.setAuthorId(entity.getAuthor().getId());
+        dto.setGenreId(entity.getGenre().getId());
         return dto;
     }
 
     public Book toDomainObject() {
-        return new Book(id, bookTitle, new Author(authorId), new Genre(genreId));
+        return new Book(id, bookTitle, new Author(getAuthorId()), new Genre(getGenreId()));
     }
 
 }
