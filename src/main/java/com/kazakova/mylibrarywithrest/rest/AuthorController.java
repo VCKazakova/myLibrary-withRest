@@ -3,12 +3,14 @@ package com.kazakova.mylibrarywithrest.rest;
 import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 public class AuthorController {
 
     private final AuthorService service;
@@ -22,9 +24,12 @@ public class AuthorController {
             method = RequestMethod.GET
     )
     public List<AuthorDto> get() {
-        return service.findAllAuthors().stream()
+        log.info(">> LookOfADayController getAllAuthors");
+        List<AuthorDto> allAuthors = service.findAllAuthors().stream()
                 .map(AuthorDto::toDto)
                 .collect(Collectors.toList());
+        log.info(">> LookOfADayController getAllAuthors allAuthors={}", allAuthors);
+        return allAuthors;
     }
 
     @RequestMapping(
@@ -34,20 +39,27 @@ public class AuthorController {
     public AuthorDto get(
             @PathVariable("id") Long id
     ) {
+        log.info(">> LookOfADayController getAuthorById id={}", id);
         Author author = service.findAuthorById(id);
-        return AuthorDto.toDto(author);
+        AuthorDto authorById = AuthorDto.toDto(author);
+        log.info(">> LookOfADayController getAuthorById authorById={}", authorById);
+        return authorById;
     }
 
     @PostMapping("/createAuthor")
-    public AuthorDto createPerson(@RequestBody AuthorDto dto) {
+    public AuthorDto createAuthor(@RequestBody AuthorDto dto) {
+        log.info(">> LookOfADayController createAuthor dto={}", dto);
         Author author = dto.toDomainObject();
         Author newAuthor = service.createAuthor(author);
-        return AuthorDto.toDto(newAuthor);
+        AuthorDto savedAuthor = AuthorDto.toDto(newAuthor);
+        log.info(">> LookOfADayController createAuthor savedAuthor={}", savedAuthor);
+        return savedAuthor;
     }
 
 
     @DeleteMapping("/author/{id}")
     public void delete(@PathVariable("id") Long id) {
+        log.info(">> LookOfADayController deleteAuthor id={}", id);
         service.deleteAuthorById(id);
     }
 
@@ -56,9 +68,11 @@ public class AuthorController {
             @PathVariable("id") Long id,
             @RequestParam("name") String name
     ) {
+        log.info(">> LookOfADayController changeAuthorName id={}", id);
         Author author = service.findAuthorById(id);
         author.setName(name);
-        service.createAuthor(author);
+        Author authorWithNewName = service.createAuthor(author);
+        log.info(">> LookOfADayController changeAuthorName authorWithNewName={}", authorWithNewName);
     }
 
 }
