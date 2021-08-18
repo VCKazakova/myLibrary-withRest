@@ -16,11 +16,16 @@ public class CommentDto {
     private String comment;
     private Long bookId;
 
-    public static Comment toDomainObject(CommentDto dto) {
-        return new Comment(dto.getId(), dto.getComment(), new Book(dto.getBookId()));
+    public static CommentDto toDto(Comment entity) {
+        CommentDto dto = new CommentDto();
+        dto.setId(entity.getId());
+        dto.setComment(entity.getComment());
+        dto.setBookId(entity.getBook().getId());
+        return dto;
     }
 
-    public static CommentDto toDto(Comment account) {
-        return new CommentDto(account.getId(), account.getComment(), account.getBook().getId());
+    public Comment toDomainObject() {
+        return new Comment(id, comment, new Book(getBookId()));
     }
+
 }

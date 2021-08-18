@@ -45,7 +45,6 @@ public class BookController {
         Book book = dto.toDomainObject();
         Book newBook = service.createBook(book);
         return BookDto.toDto(newBook);
-
     }
 
     @DeleteMapping("/book/{id}")

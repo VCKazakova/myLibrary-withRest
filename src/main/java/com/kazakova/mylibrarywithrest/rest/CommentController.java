@@ -35,19 +35,15 @@ public class CommentController {
     public CommentDto get(
             @PathVariable("id") Long id
     ) {
-       Comment comment = service.findCommentById(id).get();
+        Comment comment = service.findCommentById(id).get();
         return CommentDto.toDto(comment);
     }
 
-    @RequestMapping(
-            value = "/comment",
-            method = RequestMethod.POST
-    )
-    public @ResponseBody
-    CommentDto create(@RequestBody CommentDto dto) {
-        Comment comment = CommentDto.toDomainObject(dto);
-        Comment commentWithId = service.createComment(comment);
-        return CommentDto.toDto(commentWithId);
+    @PostMapping("/createComment")
+    public CommentDto createComment(@RequestBody CommentDto dto) {
+        Comment comment = dto.toDomainObject();
+        Comment newComment = service.createComment(comment);
+        return CommentDto.toDto(newComment);
     }
 
     @DeleteMapping("/comment/{id}")
