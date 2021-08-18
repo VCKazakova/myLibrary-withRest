@@ -42,8 +42,7 @@ public class AuthorController {
     public AuthorDto createPerson(@RequestBody AuthorDto dto) {
         Author author = dto.toDomainObject();
         Author newAuthor = service.createAuthor(author);
-        AuthorDto authorDto = AuthorDto.toDto(newAuthor);
-        return authorDto;
+        return AuthorDto.toDto(newAuthor);
     }
 
 

@@ -36,7 +36,8 @@ public class BookController {
     public BookDto get(
             @PathVariable("id") Long id
     ) {
-        Book book = service.findBookById(id).orElseThrow(NotFoundException::new);
+        Book book = service.findBookById(id)
+                .orElseThrow(() -> new NotFoundException("Book not found", id));
         return BookDto.toDto(book);
     }
 
