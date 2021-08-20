@@ -2,7 +2,6 @@ package com.kazakova.mylibrarywithrest.service;
 
 
 import com.kazakova.mylibrarywithrest.domain.Author;
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +18,6 @@ import java.util.List;
 @DataJpaTest
 @Import(AuthorService.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Slf4j
 public class AuthorServiceTest {
 
     private static final long FIRST_AUTHOR_ID = 1L;
