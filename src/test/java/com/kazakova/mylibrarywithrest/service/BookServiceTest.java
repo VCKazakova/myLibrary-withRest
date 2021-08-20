@@ -14,60 +14,64 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
+import java.util.List;
 import java.util.Optional;
 
-@DisplayName("Service book должен")
+@DisplayName("Service Book должен")
 @DataJpaTest
 @Import(BookService.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class BookServiceTest {
 
-
-    private static final String NEW_BOOK_TITLE = "Gold chain";
-    private static final Long FIRST_BOOK_ID = 1L;
-    private static final Long THIRD_BOOK_ID = 3L;
+    private static final long FIRST_BOOK_ID = 1L;
+    private static final long SECOND_BOOK_ID = 2L;
+    private static final long FIFTH_BOOK_ID = 5L;
+    private static final long THIRD_BOOK_ID = 3L;
+    private static final long EXPECTED_NUMBER_OF_BOOKS = 10L;
+    private static final String FIRST_UPDATE_BOOK = "Fight club";
 
     @Autowired
-    private final BookService bookService;
+    private BookService bookService;
 
     @Autowired
     private TestEntityManager tem;
 
-    public BookServiceTest(BookService bookService) {
-        this.bookService = bookService;
+    @DisplayName("Загружать информацию о нужной книге по его id")
+    @Test
+    void testFindExpectedBookById() {
+        Optional<Book> optionalActualBook = bookService.findBookById(FIRST_BOOK_ID);
+        Book expectedBook = tem.find(Book.class, FIRST_BOOK_ID);
+        AssertionsForClassTypes.assertThat(optionalActualBook).isPresent().get()
+                .isEqualTo(expectedBook);
     }
 
+    @DisplayName("Загружать список всех книг")
+    @Test
+    void testFindAllBooks() {
+        List<Book> listBook = bookService.findAllBooks();
+        Assertions.assertEquals(EXPECTED_NUMBER_OF_BOOKS, listBook.size());
+    }
 
     @DisplayName("Добавлять книгу")
     @Test
-    public void testAddBook() throws Exception {
-        Book newBook = new Book();
-        Author newAuthor = new Author(1L, "Green");
-        Genre newGenre = new Genre(1L, "Roman");
+    public void testAddBook() {
+        Author author = new Author();
+        author.setName("Pushkin");
+        Genre genre = new Genre();
+        genre.setName("Roman");
+        Book book = new Book();
+        book.setBookTitle(FIRST_UPDATE_BOOK);
+        book.setAuthor(author);
+        book.setGenre(genre);
 
-        newBook.setBookTitle(NEW_BOOK_TITLE);
-        newBook.setAuthor(newAuthor);
-        newBook.setGenre(newGenre);
+        bookService.createBook(book);
 
-        bookService.createBook(newBook);
-
-        Optional<Book> bookOptional = bookService.findBookById(newBook.getId());
+        Optional<Book> bookOptional = bookService.findBookById(book.getId());
 
         Assertions.assertTrue(bookOptional.isPresent(), "Book does not exist");
 
         Book book1 = bookOptional.get();
-        Assertions.assertEquals(newBook, book1);
-    }
-
-
-    @DisplayName("Загружать информацию о нужной книге по ее id")
-    @Test
-    public void testFindExpectedBookById() {
-        Optional<Book> optionalActualBook = bookService.findBookById(FIRST_BOOK_ID);
-        Book expectedBook = tem.find(Book.class, FIRST_BOOK_ID);
-
-        AssertionsForClassTypes.assertThat(optionalActualBook)
-                .isPresent().get().isEqualTo(expectedBook);
+        Assertions.assertEquals(book, book1);
     }
 
     @DisplayName("Удалять книгу по id")
@@ -79,14 +83,21 @@ public class BookServiceTest {
 
     @DisplayName("Обновлять книгу")
     @Test
-    public void testUpdateBook () {
-        Optional<Book> optionalBook = bookService.findBookById(FIRST_BOOK_ID);
+    public void shouldUpdateBook() {
+        Optional<Book> book = bookService.findBookById(SECOND_BOOK_ID);
 
-        Assertions.assertTrue(optionalBook.isPresent(), "Book does not exist");
-        Book bookForUpdate = optionalBook.get();
-        bookForUpdate.setBookTitle(NEW_BOOK_TITLE);
+        Assertions.assertTrue(book.isPresent(), "Book does not exist");
+        Book book1 = book.get();
+        book1.setBookTitle(FIRST_UPDATE_BOOK);
+        bookService.createBook(book1);
 
-        Assertions.assertEquals(bookForUpdate.getBookTitle(), NEW_BOOK_TITLE);
+        Optional<Book> newBook = bookService.findBookById(SECOND_BOOK_ID);
+        Assertions.assertTrue(newBook.isPresent(), "Book does not exist");
+
+        Book result = newBook.get();
+
+        Assertions.assertEquals(result, book1);
+        Assertions.assertEquals(result.getBookTitle(), FIRST_UPDATE_BOOK);
     }
 
 }
