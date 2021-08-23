@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,8 +32,7 @@ public class AuthorControllerTest {
     private AuthorService authorService;
 
     @Test
-    public void getAllAuthors() throws Exception {
-//        List<Author> authorList = new ArrayList();
+    public void testGetAllAuthors() throws Exception {
         AuthorDto author1 = new AuthorDto(1L, "Green");
         AuthorDto author2 = new AuthorDto(2L, "King");
         AuthorDto author3 = new AuthorDto(3L, "Pushkin");
@@ -43,25 +41,8 @@ public class AuthorControllerTest {
         AuthorDto author6 = new AuthorDto(6L, "Shekspir");
         AuthorDto author7 = new AuthorDto(7L, "Esenin");
         AuthorDto author8 = new AuthorDto(8L, "Bulgakov");
-//        authorList.add(author1);
-//        authorList.add(author2);
-//        authorList.add(author3);
-//        authorList.add(author4);
-//        authorList.add(author5);
-//        authorList.add(author6);
-//        authorList.add(author7);
-//        authorList.add(author8);
-//        AuthorDto authorDto1 = new AuthorDto(1L, "Green");
-//        AuthorDto authorDto2 = new AuthorDto(2L, "King");
-//        when(authorService.findAllAuthors()).thenReturn(authorList);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/authors");
-
-//        MvcResult mvcResult = mockMvc.perform(request.content(MediaType.APPLICATION_JSON_VALUE))
-//                .andExpect(status().isOk()).andReturn();
-
-//        MockHttpServletResponse response = mvcResult.getResponse();
-//        response.getContentAsString();
 
         mockMvc.perform(request)
                 .andExpect(status().isOk())
@@ -70,6 +51,19 @@ public class AuthorControllerTest {
                                 author4, author5, author6,
                                 author7, author8))));
 
+    }
+
+    @Test
+    public void testGetAuthorById() throws Exception {
+
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/author/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value("Green"));
     }
 
 }
