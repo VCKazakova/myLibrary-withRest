@@ -1,6 +1,7 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,9 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AuthorControllerTest {
-
-//    @Autowired
-//    private ObjectMapper objectMapper;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -64,6 +63,21 @@ public class AuthorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value("Green"));
+    }
+
+    @Test
+    public void testCreateAuthor() throws Exception {
+        AuthorDto author = new AuthorDto();
+        author.setName("Karamzin");
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/createAuthor");
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString(author))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value("Karamzin"));
+
     }
 
 }
