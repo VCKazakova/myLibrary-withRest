@@ -1,7 +1,6 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
 import org.junit.jupiter.api.Test;
@@ -79,5 +78,19 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$.name").value("Karamzin"));
 
     }
+
+    @Test
+    public void testDeleteAuthor() throws Exception {
+
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/author/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+    }
+
+
+
 
 }
