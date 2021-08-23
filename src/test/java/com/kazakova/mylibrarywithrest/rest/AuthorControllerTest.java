@@ -1,13 +1,16 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.service.AuthorService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -26,7 +29,7 @@ public class AuthorControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @Autowired
     private AuthorService authorService;
 
     @Test
@@ -66,14 +69,14 @@ public class AuthorControllerTest {
 
     @Test
     public void testCreateAuthor() throws Exception {
-        AuthorDto author = new AuthorDto();
+        Author author = new Author();
         author.setName("Karamzin");
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/createAuthor");
 
-        mockMvc.perform(request.content(objectMapper.writeValueAsString(author))
+        mockMvc.perform(request.content(objectMapper.writeValueAsString((author)))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("Karamzin"));
 
@@ -91,6 +94,21 @@ public class AuthorControllerTest {
     }
 
 
+    @Test
+    public void testUpdateNameForAuthor() throws Exception {
 
+        Long id = 1L;
+        Author authorForUpdate = authorService.findAuthorById(id);
+        authorForUpdate.setName("H.Green");
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/author/{id}/holder", id);
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString(authorForUpdate))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.name").value("H.Green"));
+
+    }
 
 }

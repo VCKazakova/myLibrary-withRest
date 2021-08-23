@@ -30,12 +30,12 @@ public class AuthorService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Author findAuthorById(long id) {
+    public Author findAuthorById(Long id) {
         return authorRepository.getById(id);
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public void deleteAuthorById(long id) {
+    public void deleteAuthorById(Long id) {
         authorRepository.deleteById(id);
     }
 
