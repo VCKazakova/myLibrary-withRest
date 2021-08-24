@@ -3,12 +3,10 @@ package com.kazakova.mylibrarywithrest.dto;
 
 import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @SuppressWarnings("all")
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreDto {
@@ -27,4 +25,19 @@ public class GenreDto {
         return new Genre(id, name);
     }
 
+    @Override
+    public String toString() {
+        return "GenreDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -96,7 +96,7 @@ public class AuthorControllerTest {
     public void testUpdateNameForAuthor() throws Exception {
 
         Long id = 1L;
-        Author authorForUpdate = authorService.findAuthorById(id);
+        Author authorForUpdate = authorService.findAuthorById(id).get();
         authorForUpdate.setName("H.Green");
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/author/{id}/holder", id);

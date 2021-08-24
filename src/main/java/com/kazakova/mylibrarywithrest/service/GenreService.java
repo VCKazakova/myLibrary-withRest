@@ -31,12 +31,12 @@ public class GenreService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Optional<Genre> findGenreById(long id) {
-        return genreRepository.findById(id);
+    public Optional<Genre> findGenreById(Long id) {
+       return genreRepository.findById(id);
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public void deleteGenreById(long id) {
+    public void deleteGenreById(Long id) {
         genreRepository.deleteById(id);
     }
 

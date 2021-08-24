@@ -1,5 +1,6 @@
 package com.kazakova.mylibrarywithrest.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ public class Book {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
-    @OneToOne(targetEntity = Genre.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Genre.class, cascade = CascadeType.PERSIST) // onetoone -> manytoone
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
