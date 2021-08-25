@@ -32,7 +32,7 @@ public class GenreService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Optional<Genre> findGenreById(Long id) {
-       return genreRepository.findById(id);
+        return genreRepository.findById(id);
     }
 
     @Transactional(rollbackFor = {SQLException.class})

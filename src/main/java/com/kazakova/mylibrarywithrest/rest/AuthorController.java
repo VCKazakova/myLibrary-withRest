@@ -69,7 +69,7 @@ public class AuthorController {
             @RequestParam("name") String name
     ) {
         log.info(">> AuthorController changeAuthorName id={}", id);
-        Author author = service.findAuthorById(id).get();
+        Author author = service.findAuthorById(id);
         author.setName(name);
         Author authorWithNewName = service.createAuthor(author);
         log.info(">> AuthorController changeAuthorName authorWithNewName={}", authorWithNewName);
