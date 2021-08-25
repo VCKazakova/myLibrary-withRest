@@ -36,15 +36,15 @@ public class AuthorController {
             value = "/author/{id}",
             method = RequestMethod.GET
     )
-//    public AuthorDto get(
-//            @PathVariable("id") Long id
-//    ) {
-//        log.info(">> AuthorController getAuthorById id={}", id);
-//        Author author = service.findAuthorById(id);
-//        AuthorDto authorById = AuthorDto.toDto(author);
-//        log.info(">> AuthorController getAuthorById authorById={}", authorById);
-//        return authorById;
-//    }
+    public AuthorDto get(
+            @PathVariable("id") Long id
+    ) {
+        log.info(">> AuthorController getAuthorById id={}", id);
+        Author author = service.findAuthorById(id);
+        AuthorDto authorById = AuthorDto.toDto(author);
+        log.info(">> AuthorController getAuthorById authorById={}", authorById);
+        return authorById;
+    }
 
     @PostMapping("/createAuthor")
     public AuthorDto createAuthor(@RequestBody AuthorDto dto) {
