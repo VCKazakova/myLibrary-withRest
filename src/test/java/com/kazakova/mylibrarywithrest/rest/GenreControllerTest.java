@@ -1,12 +1,11 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
-import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.dto.GenreDto;
 import com.kazakova.mylibrarywithrest.service.GenreService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -90,27 +91,25 @@ public class GenreControllerTest {
     }
 
 
-
-
-
     @Test
-    //@Transactional
+    @Transactional
     public void testUpdateNameForGenre() throws Exception {
 
         Long id = 1L;
-        GenreDto genre = GenreDto.toDto(genreService.findGenreById(id).get());    //.toDomainObject();
+     //   GenreDto genre = GenreDto.toDto(genreService.findGenreById(id).get());    //.toDomainObject();
 
 //        Genre genreForUpdate = genreService.findGenreById(id).get();
 //        genreForUpdate.setName("Love roman");
-        genre.setName("Love roman");
+      //  genre.setName("Love roman");
+      //  Genre genre = genreService.findGenreById(id).get();
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/genre/{id}/holder", id);
 
-        mockMvc.perform(request.content(objectMapper.writeValueAsString(genre))
+        mockMvc.perform(request.content(objectMapper.writeValueAsString(new Genre("Love")))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.name").value("Love roman"));
+                .andExpect(jsonPath("$.name").value("Love"));
 
     }
 }

@@ -1,8 +1,9 @@
 package com.kazakova.mylibrarywithrest.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -38,6 +39,10 @@ public class Genre {
 
     public Genre(Long id) {
         this.id = id;
+    }
+
+    public Genre(String name) {
+        this.name = name;
     }
 
     @Override
