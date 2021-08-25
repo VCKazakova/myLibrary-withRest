@@ -30,12 +30,12 @@ public class CommentService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Optional<Comment> findCommentById(long id) {
+    public Optional<Comment> findCommentById(Long id) {
         return commentRepository.findById(id);
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public void deleteCommentById(long id) {
+    public void deleteCommentById(Long id) {
         commentRepository.deleteById(id);
     }
 

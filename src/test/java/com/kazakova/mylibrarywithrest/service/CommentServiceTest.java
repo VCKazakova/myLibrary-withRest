@@ -37,7 +37,7 @@ public class CommentServiceTest {
     @DisplayName("Добавлять комментарий")
     @Test
     public void testAddComment() throws Exception {
-        Book book = commentService.findCommentById(3).get().getBook();
+        Book book = commentService.findCommentById(3L).get().getBook();
         Comment comment = new Comment();
         comment.setComment(FIRST_UPDATE_COMMENT);
         comment.setBook(book);
