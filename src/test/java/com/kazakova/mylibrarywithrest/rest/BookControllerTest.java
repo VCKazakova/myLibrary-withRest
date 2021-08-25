@@ -1,12 +1,16 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kazakova.mylibrarywithrest.domain.Author;
+import com.kazakova.mylibrarywithrest.domain.Book;
+import com.kazakova.mylibrarywithrest.domain.Genre;
 import com.kazakova.mylibrarywithrest.dto.BookDto;
 import com.kazakova.mylibrarywithrest.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -63,5 +67,26 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.authorId").value(1))
                 .andExpect(jsonPath("$.genreId").value(1));
     }
+
+    @Test
+    public void testCreateBook() throws Exception {
+        Book book = new Book();
+        Author author = new Author(3L, "Pushkin");
+        Genre genre = new Genre(3L, "Tale");
+        book.setBookTitle("Tale about gold fish");
+        book.setAuthor(author);
+        book.setGenre(genre);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/createBook");
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString((book)))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.bookTitle").value("Tale about gold fish"));
+
+    }
+
+
 
 }
