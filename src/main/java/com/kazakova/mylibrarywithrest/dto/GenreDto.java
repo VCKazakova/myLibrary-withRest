@@ -1,12 +1,15 @@
 package com.kazakova.mylibrarywithrest.dto;
 
 
-import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @SuppressWarnings("all")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreDto {
@@ -33,11 +36,4 @@ public class GenreDto {
                 '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

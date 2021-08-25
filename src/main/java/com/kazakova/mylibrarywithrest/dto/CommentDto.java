@@ -3,11 +3,13 @@ package com.kazakova.mylibrarywithrest.dto;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Comment;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @SuppressWarnings("all")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
@@ -28,4 +30,12 @@ public class CommentDto {
         return new Comment(id, comment, new Book(getBookId()));
     }
 
+    @Override
+    public String toString() {
+        return "CommentDto{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", bookId=" + bookId +
+                '}';
+    }
 }

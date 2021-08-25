@@ -4,11 +4,13 @@ import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Genre;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @SuppressWarnings("all")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDto {
@@ -31,4 +33,13 @@ public class BookDto {
         return new Book(id, bookTitle, new Author(getAuthorId()), new Genre(getGenreId()));
     }
 
+    @Override
+    public String toString() {
+        return "BookDto{" +
+                "id=" + id +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", authorId=" + authorId +
+                ", genreId=" + genreId +
+                '}';
+    }
 }
