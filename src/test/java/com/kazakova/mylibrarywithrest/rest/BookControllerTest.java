@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -50,6 +49,19 @@ public class BookControllerTest {
                                 book5, book6, book7, book8, book9, book10))));
     }
 
+    @Test
+    public void testGetBookById() throws Exception {
 
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/book/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.bookTitle").value("Red sails"))
+                .andExpect(jsonPath("$.authorId").value(1))
+                .andExpect(jsonPath("$.genreId").value(1));
+    }
 
 }
