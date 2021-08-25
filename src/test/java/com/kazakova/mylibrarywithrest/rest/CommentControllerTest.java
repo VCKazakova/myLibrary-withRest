@@ -3,6 +3,7 @@ package com.kazakova.mylibrarywithrest.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Comment;
+import com.kazakova.mylibrarywithrest.dto.BookDto;
 import com.kazakova.mylibrarywithrest.dto.CommentDto;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -93,6 +95,22 @@ public class CommentControllerTest {
 
         mockMvc.perform(request)
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateComment() throws Exception {
+
+        Long id = 1L;
+        Comment comment = commentService.findCommentById(id).get();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/comment/{id}/holder?comment=Br-r-r-r-r", id);
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString(CommentDto.toDto(comment).toDomainObject()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
     }
 
 }

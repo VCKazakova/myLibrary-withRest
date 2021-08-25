@@ -101,7 +101,7 @@ public class BookControllerTest {
 
     @Test
     @Transactional
-    public void testUpdateNameForGenre() throws Exception {
+    public void testUpdateNameForBook() throws Exception {
 
         Long id = 1L;
         Book book = bookService.findBookById(id).get();
