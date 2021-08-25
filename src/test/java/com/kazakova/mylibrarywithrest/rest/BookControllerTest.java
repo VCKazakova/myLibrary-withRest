@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -98,6 +99,20 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @Transactional
+    public void testUpdateNameForGenre() throws Exception {
 
+        Long id = 1L;
+        Book book = bookService.findBookById(id).get();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/book/{id}/holder?bookTitle=Red sails and Assol", id);
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString(BookDto.toDto(book).toDomainObject()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+    }
 
 }

@@ -32,12 +32,12 @@ public class BookService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Optional<Book> findBookById(long id) {
+    public Optional<Book> findBookById(Long id) {
         return bookRepository.findById(id);
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public void deleteBookById(long id) {
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
 
