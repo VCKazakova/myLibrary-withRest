@@ -36,4 +36,7 @@ public class GenreDto {
                 '}';
     }
 
+    public GenreDto(String name) {
+        this.name = name;
+    }
 }
