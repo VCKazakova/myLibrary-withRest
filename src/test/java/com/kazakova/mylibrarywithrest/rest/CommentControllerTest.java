@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,5 +49,19 @@ public class CommentControllerTest {
                         writeValueAsString(Arrays.asList(comment1, comment2, comment3, comment4,
                                 comment5, comment6, comment7, comment8, comment9, comment10))));
 
+    }
+
+    @Test
+    public void testGetCommentById() throws Exception {
+
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/comment/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.comment").value("Brrr"))
+                .andExpect(jsonPath("$.bookId").value(2));
     }
 }
