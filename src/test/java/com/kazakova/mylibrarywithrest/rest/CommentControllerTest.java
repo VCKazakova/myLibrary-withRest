@@ -3,7 +3,6 @@ package com.kazakova.mylibrarywithrest.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Comment;
-import com.kazakova.mylibrarywithrest.domain.Genre;
 import com.kazakova.mylibrarywithrest.dto.CommentDto;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -84,6 +82,17 @@ public class CommentControllerTest {
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.comment").value("Foooo"));
 
+    }
+
+    @Test
+    public void testDeleteComment() throws Exception {
+
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/comment/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
     }
 
 }
