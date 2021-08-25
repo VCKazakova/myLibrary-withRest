@@ -87,6 +87,17 @@ public class BookControllerTest {
 
     }
 
+    @Test
+    public void testDeleteBook() throws Exception {
+
+        Long id = 1L;
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/book/{id}", id);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+    }
+
 
 
 }
