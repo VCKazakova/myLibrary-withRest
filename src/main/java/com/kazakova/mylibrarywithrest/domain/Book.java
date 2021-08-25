@@ -53,6 +53,11 @@ public class Book {
         this.id = bookId;
     }
 
+    public Book(Long id, String bookTitle) {
+        this.id = id;
+        this.bookTitle = bookTitle;
+    }
+
     @Override
     public String toString() {
         return "Book{" +

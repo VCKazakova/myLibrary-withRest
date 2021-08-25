@@ -1,12 +1,16 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kazakova.mylibrarywithrest.domain.Book;
+import com.kazakova.mylibrarywithrest.domain.Comment;
+import com.kazakova.mylibrarywithrest.domain.Genre;
 import com.kazakova.mylibrarywithrest.dto.CommentDto;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -64,4 +68,22 @@ public class CommentControllerTest {
                 .andExpect(jsonPath("$.comment").value("Brrr"))
                 .andExpect(jsonPath("$.bookId").value(2));
     }
+
+    @Test
+    public void testCreateComment() throws Exception {
+        Comment comment = new Comment();
+        Book book = new Book(1L, "Red sails");
+        comment.setComment("Foooo");
+        comment.setBook(book);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/createComment");
+
+        mockMvc.perform(request.content(objectMapper.writeValueAsString((comment)))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.comment").value("Foooo"));
+
+    }
+
 }
