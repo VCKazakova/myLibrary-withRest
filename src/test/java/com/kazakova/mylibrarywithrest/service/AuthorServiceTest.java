@@ -33,25 +33,25 @@ public class AuthorServiceTest {
     @Autowired
     private TestEntityManager tem;
 
-//    @DisplayName("Добавлять автора")
-//    @Test
-//    public void testAddAuthor() throws Exception {
-//        Author author = new Author();
-//        author.setName(FIRST_UPDATE_AUTHOR);
-//        authorService.createAuthor(author);
-//
-//        Author authorById = authorService.findAuthorById(author.getId());
-//        Assertions.assertEquals(author, authorById);
-//    }
+    @DisplayName("Добавлять автора")
+    @Test
+    public void testAddAuthor() throws Exception {
+        Author author = new Author();
+        author.setName(FIRST_UPDATE_AUTHOR);
+        authorService.createAuthor(author);
 
-//    @DisplayName("Загружать информацию о нужном авторе по его id")
-//    @Test
-//    void testFindExpectedAuthorById() {
-//        Author actualAuthor = authorService.findAuthorById(FIRST_AUTHOR_ID);
-//        Author expectedAuthor = tem.find(Author.class, FIRST_AUTHOR_ID);
-//        AssertionsForClassTypes.assertThat(actualAuthor)
-//                .isEqualTo(expectedAuthor);
-//    }
+        Author authorById = authorService.findAuthorById(author.getId());
+        Assertions.assertEquals(author, authorById);
+    }
+
+    @DisplayName("Загружать информацию о нужном авторе по его id")
+    @Test
+    void testFindExpectedAuthorById() {
+        Author actualAuthor = authorService.findAuthorById(FIRST_AUTHOR_ID);
+        Author expectedAuthor = tem.find(Author.class, FIRST_AUTHOR_ID);
+        AssertionsForClassTypes.assertThat(actualAuthor)
+                .isEqualTo(expectedAuthor);
+    }
 
     @DisplayName("Загружать список всех авторов")
     @Test
@@ -67,13 +67,13 @@ public class AuthorServiceTest {
         Assertions.assertEquals(7L, authorService.findAllAuthors().size());
     }
 
-//    @DisplayName("Обновлять автора")
-//    @Test
-//    public void testUpdateAuthor() {
-//        Author authorById = authorService.findAuthorById(FIRST_AUTHOR_ID);
-//        authorById.setName("I.Green");
-//        Assertions.assertEquals(authorById.getName(), "I.Green");
-//    }
+    @DisplayName("Обновлять автора")
+    @Test
+    public void testUpdateAuthor() {
+        Author authorById = authorService.findAuthorById(FIRST_AUTHOR_ID);
+        authorById.setName("I.Green");
+        Assertions.assertEquals(authorById.getName(), "I.Green");
+    }
 
 
 }
