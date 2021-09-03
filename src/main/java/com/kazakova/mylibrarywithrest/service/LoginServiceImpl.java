@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
                         .build();
 
                 tokenRepository.save(token);
-                return from(token);
+                return TokenDto.from(token);
             }
         }
         throw new IllegalArgumentException("User not found");
