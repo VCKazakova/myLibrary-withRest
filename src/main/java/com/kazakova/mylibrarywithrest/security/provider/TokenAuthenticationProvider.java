@@ -2,6 +2,7 @@ package com.kazakova.mylibrarywithrest.security.provider;
 
 import com.kazakova.mylibrarywithrest.domain.Token;
 import com.kazakova.mylibrarywithrest.repository.TokenRepository;
+import com.kazakova.mylibrarywithrest.security.token.TokenAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
