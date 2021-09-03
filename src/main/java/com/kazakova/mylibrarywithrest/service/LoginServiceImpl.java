@@ -2,18 +2,16 @@ package com.kazakova.mylibrarywithrest.service;
 
 import com.kazakova.mylibrarywithrest.domain.Token;
 import com.kazakova.mylibrarywithrest.domain.User;
+import com.kazakova.mylibrarywithrest.dto.TokenDto;
+import com.kazakova.mylibrarywithrest.forms.LoginForm;
 import com.kazakova.mylibrarywithrest.repository.TokenRepository;
 import com.kazakova.mylibrarywithrest.repository.UserRepository;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.ivmiit.service.forms.LoginForm;
-import ru.ivmiit.service.transfer.TokenDto;
 
 import java.util.Optional;
-
-import static ru.ivmiit.service.transfer.TokenDto.from;
 
 @Component
 public class LoginServiceImpl implements LoginService {
