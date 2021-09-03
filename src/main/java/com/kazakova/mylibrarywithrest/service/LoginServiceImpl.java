@@ -9,23 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.ivmiit.service.forms.LoginForm;
-import ru.ivmiit.service.models.Token;
-import ru.ivmiit.service.models.User;
-import ru.ivmiit.service.repositories.TokensRepository;
-import ru.ivmiit.service.repositories.UsersRepository;
 import ru.ivmiit.service.transfer.TokenDto;
 
 import java.util.Optional;
 
 import static ru.ivmiit.service.transfer.TokenDto.from;
 
-/**
- * 25.04.2018
- * LoginServiceImpl
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
 @Component
 public class LoginServiceImpl implements LoginService {
 
@@ -54,6 +43,7 @@ public class LoginServiceImpl implements LoginService {
                 tokenRepository.save(token);
                 return from(token);
             }
-        } throw new IllegalArgumentException("User not found");
+        }
+        throw new IllegalArgumentException("User not found");
     }
 }
