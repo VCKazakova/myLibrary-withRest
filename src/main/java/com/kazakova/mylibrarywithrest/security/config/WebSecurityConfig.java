@@ -1,5 +1,6 @@
 package com.kazakova.mylibrarywithrest.security.config;
 
+import com.kazakova.mylibrarywithrest.security.filters.TokenAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

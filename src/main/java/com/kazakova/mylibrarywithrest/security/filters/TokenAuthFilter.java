@@ -1,5 +1,6 @@
 package com.kazakova.mylibrarywithrest.security.filters;
 
+import com.kazakova.mylibrarywithrest.security.token.TokenAuthentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
