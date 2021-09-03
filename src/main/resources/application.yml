@@ -19,4 +19,4 @@ spring:
 
 logging:
   level:
-    ROOT: info
+    ROOT: debug
