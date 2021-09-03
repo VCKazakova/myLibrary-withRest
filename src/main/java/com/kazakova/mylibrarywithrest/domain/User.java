@@ -3,6 +3,7 @@ package com.kazakova.mylibrarywithrest.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
