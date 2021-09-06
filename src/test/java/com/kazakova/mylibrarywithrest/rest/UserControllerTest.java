@@ -40,17 +40,17 @@ public class UserControllerTest {
 
     }
 
-    @Test
-    public void testGetUserById() throws Exception {
-
-        Long userId = 1L;
-
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{user-1}", userId);
-
-        mockMvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(userId))
-                .andExpect(jsonPath("$.login").value("oleg"));
-    }
+//    @Test
+//    public void testGetUserById() throws Exception {
+//
+//        Long userId = 1L;
+//
+//        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{user-id}", userId);
+//
+//        mockMvc.perform(request)
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(userId))
+//                .andExpect(jsonPath("$.login").value("oleg"));
+//    }
 
 }
