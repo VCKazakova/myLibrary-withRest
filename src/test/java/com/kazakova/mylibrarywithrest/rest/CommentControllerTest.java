@@ -3,7 +3,6 @@ package com.kazakova.mylibrarywithrest.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kazakova.mylibrarywithrest.domain.Book;
 import com.kazakova.mylibrarywithrest.domain.Comment;
-import com.kazakova.mylibrarywithrest.dto.BookDto;
 import com.kazakova.mylibrarywithrest.dto.CommentDto;
 import com.kazakova.mylibrarywithrest.service.CommentService;
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -33,6 +33,7 @@ public class CommentControllerTest {
     private CommentService commentService;
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     public void testGetAllComments() throws Exception {
         CommentDto comment1 = new CommentDto(1L, "Brrr", 2L);
         CommentDto comment2 = new CommentDto(2L, "Wow", 1L);
@@ -56,6 +57,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     public void testGetCommentById() throws Exception {
 
         Long id = 1L;
@@ -70,6 +72,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     public void testCreateComment() throws Exception {
         Comment comment = new Comment();
         Book book = new Book(1L, "Red sails");
@@ -87,6 +90,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     public void testDeleteComment() throws Exception {
 
         Long id = 1L;
@@ -98,6 +102,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     @Transactional
     public void testUpdateComment() throws Exception {
 
