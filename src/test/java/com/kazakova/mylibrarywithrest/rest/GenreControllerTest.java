@@ -1,7 +1,9 @@
 package com.kazakova.mylibrarywithrest.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kazakova.mylibrarywithrest.domain.Author;
 import com.kazakova.mylibrarywithrest.domain.Genre;
+import com.kazakova.mylibrarywithrest.dto.AuthorDto;
 import com.kazakova.mylibrarywithrest.dto.GenreDto;
 import com.kazakova.mylibrarywithrest.service.GenreService;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +34,7 @@ public class GenreControllerTest {
     private GenreService genreService;
 
     @Test
+    @WithMockUser("oleg")
     public void testGetAllGenres() throws Exception {
         GenreDto genre1 = new GenreDto(1L, "Roman");
         GenreDto genre2 = new GenreDto(2L, "Comedy");
@@ -50,6 +54,7 @@ public class GenreControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testGetGenreById() throws Exception {
 
         Long id = 1L;
@@ -63,6 +68,7 @@ public class GenreControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testCreateGenre() throws Exception {
         Genre genre = new Genre();
         genre.setName("Epos");
@@ -75,9 +81,11 @@ public class GenreControllerTest {
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("Epos"));
 
+
     }
 
     @Test
+    @WithMockUser(username = "oleg", roles={"USER","ADMIN"})
     public void testDeleteGenre() throws Exception {
 
         Long id = 1L;
@@ -91,6 +99,7 @@ public class GenreControllerTest {
 
     @Test
     @Transactional
+    @WithMockUser("oleg")
     public void testUpdateNameForGenre() throws Exception {
 
         Long id = 1L;

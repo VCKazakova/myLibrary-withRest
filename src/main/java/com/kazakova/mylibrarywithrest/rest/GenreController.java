@@ -48,7 +48,7 @@ public class GenreController {
     }
 
     @PostMapping("/genre")
-    public GenreDto create(GenreDto dto) {
+    public GenreDto create(@RequestBody GenreDto dto) {
         log.info(">> GenreController createGenre dto={}", dto);
         Genre genre = dto.toDomainObject();
         Genre newGenre = service.createGenre(genre);
