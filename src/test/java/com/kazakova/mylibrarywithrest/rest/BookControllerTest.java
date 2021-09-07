@@ -34,6 +34,7 @@ public class BookControllerTest {
     private BookService bookService;
 
     @Test
+    @WithMockUser("oleg")
     public void testGetAllBooks() throws Exception {
         BookDto book1 = new BookDto(1L, "Red sails", 1L, 1L);
         BookDto book2 = new BookDto(2L, "Kerry", 2L, 1L);
@@ -56,6 +57,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testGetBookById() throws Exception {
 
         Long id = 1L;
@@ -71,6 +73,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testCreateBook() throws Exception {
         Book book = new Book();
         Author author = new Author(3L, "Pushkin");
@@ -90,6 +93,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testDeleteBook() throws Exception {
 
         Long id = 1L;
@@ -101,6 +105,7 @@ public class BookControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     @Transactional
     public void testUpdateNameForBook() throws Exception {
 
