@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +32,7 @@ public class AuthorControllerTest {
     private AuthorService authorService;
 
     @Test
+    @WithMockUser("oleg")
     public void testGetAllAuthors() throws Exception {
         AuthorDto author1 = new AuthorDto(1L, "Green");
         AuthorDto author2 = new AuthorDto(2L, "King");
@@ -53,6 +55,7 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testGetAuthorById() throws Exception {
 
         Long id = 1L;
@@ -66,6 +69,7 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testCreateAuthor() throws Exception {
         Author author = new Author();
         author.setName("Karamzin");
@@ -81,6 +85,7 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @WithMockUser("oleg")
     public void testDeleteAuthor() throws Exception {
 
         Long id = 1L;
@@ -93,6 +98,7 @@ public class AuthorControllerTest {
 
 
     @Test
+    @WithMockUser("oleg")
     @Transactional
     public void testUpdateNameForAuthor() throws Exception {
 

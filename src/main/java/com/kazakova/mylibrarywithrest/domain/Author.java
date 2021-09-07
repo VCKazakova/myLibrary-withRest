@@ -27,7 +27,7 @@ public class Author {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) // eager for testing authorcontroller
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private List<Book> books = new ArrayList<>();
